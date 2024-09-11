@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: mempyDEB
+Version: 0.1.0
+Summary: DEB-TKTD modelling in Python
+Home-page: https://github.com/simonhansul/mempyDEB
+Author: Simon Hansul
+Author-email: simonhansul@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+
+# mempyDEB
+
+mempyDEB is a Python package that provides the basics for doing DEB-TKTD modelling in Python. 
+It mostly defines a baseline model, default parameters and functions to run the model.
