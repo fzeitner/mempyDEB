@@ -33,12 +33,12 @@ def simulate_DEBBase(params):
     # calculation of survival over time based on GUTS-SD
     stvec = [np.exp(-LL2h(D, (params.spc['ED50_h'], params.spc['beta_h'])) * t) for (t,D) in zip(sol.t, sol.y[5])]
         
-    yhat = pd.DataFrame(np.transpose(sol.y))
-    yhat.rename({0 : 'S', 1 : 'R', 2 : 'X_emb', 3 : 'X', 4 : 'D_j', 5 : 'D_h'}, axis = 1, inplace = True)
-    yhat['t'] = np.array(sol.t) - params.glb['a_int'] # subtracting initial age from time helps to align output with experimental observaions
-    yhat['survival'] = stvec
+    sim = pd.DataFrame(np.transpose(sol.y))
+    sim.rename({0 : 'S', 1 : 'R', 2 : 'X_emb', 3 : 'X', 4 : 'D_j', 5 : 'D_h'}, axis = 1, inplace = True)
+    sim['t'] = np.array(sol.t) - params.glb['a_int'] # subtracting initial age from time helps to align output with experimental observaions
+    sim['survival'] = stvec
 
-    return yhat
+    return sim
 
 def constant_exposures(simulator, params, C_Wvec):
     p = copy.deepcopy(params)
