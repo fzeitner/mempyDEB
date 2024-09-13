@@ -15,7 +15,7 @@ Additional packages listed below may have to installed via pip. Some will be pre
 ## Getting started
 
 The examples directory contains a notebook which demonstrates the basic functionality of this package. <br>
-Generally, `mempyDEB` is a fairly slim package, designed as a low-barrier easy entry point to DEB-TKTD modelling. <br>
+Generally, `mempyDEB` is a fairly slim package, designed as a low-barrier entry point to DEB-TKTD modelling. <br>
 There are not many functions, but the code can be adapted to be used for more extensive (research) tasks.
 
 ## Info & Acknowledgements
