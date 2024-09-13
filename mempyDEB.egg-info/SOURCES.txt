@@ -1,3 +1,4 @@
+LICENSE.md
 README.md
 setup.py
 mempyDEB/__init__.py
@@ -10,3 +11,4 @@ mempyDEB/DEBODE/__init__.py
 mempyDEB/DEBODE/defaultparams.py
 mempyDEB/DEBODE/derivatives.py
 mempyDEB/DEBODE/simulators.py
+tests/tests.py

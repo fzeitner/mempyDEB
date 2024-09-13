@@ -3,6 +3,7 @@ from .derivatives import *
 import numpy as np
 import pandas as pd
 from scipy.integrate import solve_ivp
+import copy
 
 def simulate_DEBBase(params):
     # maximum srutural length (expressed in mass ^ (1/3))
@@ -38,3 +39,14 @@ def simulate_DEBBase(params):
     yhat['survival'] = stvec
 
     return yhat
+
+def constant_exposures(simulator, params, C_Wvec):
+    p = copy.deepcopy(params)
+    output = pd.DataFrame() # colelct all output in this data frame
+
+    for C_W in C_Wvec:
+        p.glb["C_W"] = C_W
+        out_i = simulator(p).assign(C_W = C_W)
+        output = pd.concat([output, out_i])
+
+    return output

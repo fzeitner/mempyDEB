@@ -10,6 +10,7 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
+License-File: LICENSE.md
 Requires-Dist: numpy
 Requires-Dist: pandas
 Requires-Dist: scipy
@@ -18,3 +19,16 @@ Requires-Dist: scipy
 
 mempyDEB is a Python package that provides the basics for doing DEB-TKTD modelling in Python. 
 It mostly defines a baseline model, default parameters and functions to run the model.
+
+## Installation
+
+To install `mempyDEB`, use the command
+
+`pip install git+https://github.com/simonhansul/mempyDEB.git`
+
+(e.g. in Anaconda prompt with the desired environment activated).
+Additional packages listed below may have to installed via pip. Some will be pre-installed through the conda distribution.
+
+## Info & Acknowledgements
+
+This pacakge was developed for the course "Mechanistic Effect Modelling" at OsnabrÃ¼ck University, as well as the postgraduate course "Dynamic Modelling of Ecotoxicological Effects" organized at University of Copenhagen. 

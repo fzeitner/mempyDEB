@@ -90,13 +90,8 @@ def DEBBase(t, y, glb, spc, LS_max):
     else:
         Rdot = 0
 
-    # TK for embryos
-    if X_emb > 0:
-        DDot_j = 0
-        DDot_h = 0
-    else:
-        DDot_j = (spc['kD_j'] * (LS_max / LS) * (glb['C_W'] - D_j)) - (D_j * (1/S) * Sdot)
-        DDot_h = (spc['kD_h'] * (LS_max / LS) * (glb['C_W'] - D_h)) - (D_h * (1/S) * Sdot)
+    DDot_j = (X_emb <= 0) * (spc['kD_j'] * (LS_max / (LS+1e-10)) * (glb['C_W'] - D_j)) - (D_j * (1/(S+1e-10)) * Sdot)
+    DDot_h = (X_emb <= 0) * (spc['kD_h'] * (LS_max / (LS+1e-10)) * (glb['C_W'] - D_h)) - (D_h * (1/(S+1e-10)) * Sdot)
 
     return Sdot, Rdot, Xdot_emb, Xdot, DDot_j, DDot_h
             
