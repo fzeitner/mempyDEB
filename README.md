@@ -15,6 +15,14 @@ Additional packages listed below may have to installed via pip. Some will be pre
 ## Getting started
 
 The examples directory contains a notebook which demonstrates the basic functionality of this package. <br>
+In short, you can run a default simulation using
+
+```Python
+from mempyDEB.DEBODE.simulators import * # imports functions to run models
+from mempyDEB.DEBODE.defaultparams import * # imports default parameters
+yhat = simulate_DEBBase(defaultparams_DEBBase) # runs the DEBBase model (a variant of DEBkiss) with default parameters
+```
+
 Generally, `mempyDEB` is a fairly slim package, designed as a low-barrier entry point to DEB-TKTD modelling. <br>
 There are not many functions, but the code can be adapted to be used for more extensive (research) tasks.
 
