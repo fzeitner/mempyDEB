@@ -10,7 +10,6 @@ To install `mempyDEB`, use the command
 `pip install git+https://github.com/simonhansul/mempyDEB.git`
 
 (e.g. in Anaconda prompt with the desired environment activated).
-Additional packages listed below may have to installed via pip. Some will be pre-installed through the conda distribution.
 
 ## Getting started
 
