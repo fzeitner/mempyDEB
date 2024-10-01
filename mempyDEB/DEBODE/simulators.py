@@ -34,8 +34,17 @@ def simulate_DEBBase(params):
     stvec = [np.exp(-LL2h(D, (params.spc['ED50_h'], params.spc['beta_h'])) * t) for (t,D) in zip(sol.t, sol.y[5])]
         
     sim = pd.DataFrame(np.transpose(sol.y))
-    sim.rename({0 : 'S', 1 : 'R', 2 : 'X_emb', 3 : 'X', 4 : 'D_j', 5 : 'D_h'}, axis = 1, inplace = True)
-    sim['t'] = np.array(sol.t) - params.glb['a_int'] # subtracting initial age from time helps to align output with experimental observaions
+    sim.rename({
+        0 : 'S', 
+        1 : 'R', 
+        2 : 'X_emb', 
+        3 : 'X', 
+        4 : 'D_j', 
+        5 : 'D_h'
+        }, axis = 1, inplace = True)
+    
+    # subtracting initial age from time helps to align output with experimental observaions
+    sim['t'] = np.array(sol.t) - params.glb['a_int'] 
     sim['survival'] = stvec
 
     return sim
