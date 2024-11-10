@@ -55,8 +55,8 @@ def DEBBase(t, y, glb, spc, LS_max):
     # relative responses for sublethal effects
     y_G = (int(spc['pmoa'] == 'G') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'G') * 1)
     y_M = (int(spc['pmoa'] == 'M') * LL2M(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'M') * 1)
-    y_A =  (int(spc['pmoa'] == 'A') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'A') * 1)
-    y_R =  (int(spc['pmoa'] == 'R') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'R') * 1)
+    y_A = (int(spc['pmoa'] == 'A') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'A') * 1)
+    y_R = (int(spc['pmoa'] == 'R') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'R') * 1)
 
     eta_AS = spc['eta_AS_0'] * y_G
     k_M = spc['k_M_0'] * y_M
@@ -91,7 +91,6 @@ def DEBBase(t, y, glb, spc, LS_max):
         Rdot = 0
 
     DDot_j = (X_emb <= 0) * (spc['kD_j'] * (LS_max / (LS+1e-10)) * (glb['C_W'] - D_j)) - (D_j * (1/(S+1e-10)) * Sdot)
-    DDot_h = (X_emb <= 0) * (spc['kD_h'] * (LS_max / (LS+1e-10)) * (glb['C_W'] - D_h)) - (D_h * (1/(S+1e-10)) * Sdot)
 
-    return Sdot, Rdot, Xdot_emb, Xdot, DDot_j, DDot_h
+    return Sdot, Rdot, Xdot_emb, Xdot, DDot_j
             
