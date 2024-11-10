@@ -43,7 +43,7 @@ def DEBBase(t, y, glb, spc, LS_max):
     - LS_max: maximum structural length (expressed as cubic root of mass), calculated from parameters in spc.
     """
 
-    S, R, X_emb, X, D_j, D_h = y
+    S, R, X_emb, X, D_j = y
     
     X_emb = np.maximum(0, X_emb)
     S = np.maximum(0, S)
