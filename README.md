@@ -11,7 +11,7 @@ To install `mempyDEB`, use the command
 
 (e.g. in Anaconda prompt with the desired environment activated). <br>
 
-If you want to try out mempyDEB but don't want to install a Python environment, you could do so in a [Google Colab notebook](colab.google.com).
+If you want to try out mempyDEB but don't want to install a Python environment, you could do so in a [Google Colab notebook]([colab.google.com](https://colab.research.google.com)).
 You can run `%pip install git+https://github.com/simonhansul/mempyDEB.git` directly in the notebook cell to install mempyDEB on colab.
 
 ## Getting started
