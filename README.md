@@ -22,7 +22,7 @@ In short, you can run a default simulation using
 ```Python
 from mempyDEB.DEBODE.simulators import * # imports functions to run models
 from mempyDEB.DEBODE.defaultparams import * # imports default parameters
-sim = simulate_DEBBase(defaultparams_DEBBase) # runs the DEBBase model (a variant of DEBkiss) with default parameters
+sim = simulate_DEBBase(defaultparams_DEBBase) # runs the baseline model (a variant of DEBkiss) with default parameters
 ```
 
 Generally, `mempyDEB` is a fairly slim package, designed as a low-barrier entry point to DEB-TKTD modelling. <br>
