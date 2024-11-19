@@ -26,7 +26,8 @@ sim = simulate_DEBBase(defaultparams_DEBBase) # runs the DEBBase model (a varian
 ```
 
 Generally, `mempyDEB` is a fairly slim package, designed as a low-barrier entry point to DEB-TKTD modelling. <br>
-There are not many functions, but the code can be adapted to be used for more extensive (research) tasks.
+There are not many functions, but the code can be adapted to be used for more extensive (research) tasks. <br>
+The built-in model is currently missing starvation rules, aging, and some more things, but the package will receive updates whenever it is needed for teaching purposes (or students are contributing through their projects!). The next update will probably be some built-in functionality for model fitting.
 
 ## Info & Acknowledgements
 
