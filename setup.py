@@ -14,7 +14,7 @@ setup(
         'numpy',
         'pandas',
         'scipy',
-        'mesa'
+        'mesa=2.4.0'
         ],
     classifiers=[
         'Programming Language :: Python :: 3',
