@@ -32,7 +32,7 @@ def simulate_DEBIBM(p):
 
     for replicate in tqdm(range(glb['replicates'])): # for the given number of replicates
             model = IBM(glb, spc) 
-            model.C_W = p['C_W'] # set the exposure concentration
+            model.C_W = p.glb['C_W'] # set the exposure concentration
 
             model.datacollector.collect(model) # always record the initial state
             for _ in range(tmax_steps): # for the given number of model steps
