@@ -11,8 +11,6 @@ from tqdm import tqdm
 from pathlib import Path
 import os
 
-from mempy.DEBODEtox import *
-
 # file organization
 path = Path(__file__)
 projectdir = path.parent.parent.absolute()
