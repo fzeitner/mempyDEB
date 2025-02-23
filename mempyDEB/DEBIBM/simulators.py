@@ -1,13 +1,16 @@
 import numpy as np
 import pandas as pd
 from collections import namedtuple
-import mesa
 from tqdm import tqdm
 from pathlib import Path
 import os
 
 from .defaultparams import *
 from .model import *
+
+import warnings ; warnings.warn = lambda *args,**kwargs: None
+import mesa
+
 
 # simulator for exposures with replicates
 
@@ -68,7 +71,7 @@ def exposure_DEBIBM(p, C_Wvec):
     for C_W in C_Wvec: # for every concentration
         p.glb['C_W'] = C_W # update entry in the global parameters
         sim = simulate_DEBIBM(p) # run the simulation
-
         mout_tot = pd.concat([mout_tot, sim.mout]) # collect results
+        aout_tot = pd.concat([aout_tot, sim.aout])
 
     return IBMOut(mout = mout_tot, aout = aout_tot) # return collected results
