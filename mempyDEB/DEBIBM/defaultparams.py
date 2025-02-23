@@ -1,4 +1,6 @@
-from mempyDEB.DEBODE import Params as Params
+from collections import namedtuple
+
+Params = namedtuple("Params", "glb spc")
 
 defaultparams_DEBIBM = Params(
     { # global parameters
