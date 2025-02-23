@@ -46,14 +46,14 @@ def simulate_DEBIBM(p):
 
             # add identifier columns to output dataframe
             mout['replicate'] = replicate
-            mout['C_W'] = p['C_W']
+            mout['C_W'] = p.glb['C_W']
             aout['replicate'] = replicate
-            aout['C_W'] = p['C_W']
+            aout['C_W'] = p.glb['C_W']
 
             mout_tot = pd.concat([mout_tot, mout])
             aout_tot = pd.concat([aout_tot, aout])
 
-    return IBMOut(mout, aout)
+    return IBMOut(mout_tot, aout_tot)
 
 def exposure_DEBIBM(p, C_Wvec):
     """
