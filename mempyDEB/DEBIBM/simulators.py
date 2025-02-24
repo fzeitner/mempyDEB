@@ -8,9 +8,9 @@ import os
 from .defaultparams import *
 from .model import *
 
+# while we use mesa < 3, suppress deprecatin warnings
 import warnings ; warnings.warn = lambda *args,**kwargs: None
 import mesa
-
 
 # simulator for exposures with replicates
 
