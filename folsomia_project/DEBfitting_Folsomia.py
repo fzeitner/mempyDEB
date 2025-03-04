@@ -114,7 +114,7 @@ def define_defaultparams():
         'Xdot_in': 1e10,
         'a_int': 6,
         'tspan': (0, 80),
-        'Cd_food': 0.
+        "Cd_food": 0.
     }
 
     spc = {
