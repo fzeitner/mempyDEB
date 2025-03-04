@@ -57,7 +57,7 @@ def plot_data(data):
     """
 
     # plot matrix mit 8 spalten für konzentrationen und 2 zeilen für wachstum und reproduktion
-    fig, ax = plt.subplots(ncols = 5, nrows=2, figsize = (20,6), sharey = True)
+    fig, ax = plt.subplots(ncols = 5, nrows=2, figsize = (20,6), sharey = 'row')
 
     for (i,C_W) in enumerate(data.C_W.unique()):
 
@@ -70,6 +70,7 @@ def plot_data(data):
     #ax[0].legend()
     #[a.legend().remove() for a in np.ravel(ax)[1:]]
     ax[0,0].set_ylim(0, 30)
+    ax[1,0].set_ylim(0, 0.0008)
     ax[0,0].set(ylabel = "Struktur (mug)")
     ax[1,0].set(ylabel = "Masse an Cadmium in Organismus (mug)")
     
@@ -118,6 +119,7 @@ def define_simulator(f: ModelFit):
                     lambda gb : gb.assign(
                         y_S = lambda gb : gb.S / gb.S_ref,
                         #y_R = lambda gb : calc_y_R(np.array(gb.cum_repro), np.array(gb.cum_repro_ref))
+                        #Cd_in = 0
                     ))
             
             return prediction.drop(['C_W', 't_day'], axis = 1).reset_index()

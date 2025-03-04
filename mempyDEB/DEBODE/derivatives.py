@@ -66,18 +66,19 @@ def DEBBase(t, y, glb, spc, LS_max):
     X_emb = np.maximum(X_emb, 0)
     X = np.maximum(X, 0)
     
-    if X_emb > 0: # feeeding and assimilation for embryos
+    if X_emb > 0: # feeding and assimilation for embryos
         Idot = spc["Idot_max_rel_emb"] * S**(2/3)
         Adot = Idot * spc['eta_IA_0'] # this assumes that embryos are not affected by the stressor
         Xdot_emb = -Idot
         Xdot = 0
         DDot_j = 0 # no change in damage for embryos
+        Cd_indot = 0
     else: # feeding, assimilation for all other life stages
         X_V = X/glb['V_patch'] 
         f = X_V / (X_V + spc['K_X'])
         Idot = f * spc["Idot_max_rel"] * S**(2/3)
         Adot = Idot * eta_IA
-        Cd_indot = Adot * glb['Cd_food'] * 10e-9         # factor of proportionality kg/mug   ### work in progress
+        Cd_indot = Adot * glb['C_W'] * 10e-9         # factor of proportionality kg/mug   ### work in progress
         Xdot = glb['Xdot_in'] - Idot
         Xdot_emb = 0
 
