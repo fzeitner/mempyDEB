@@ -10,7 +10,7 @@ def simulate_DEBBase(params):
     # this is used in the derivatives to compute size-dependent TK
     LS_max = (params.spc['kappa']*params.spc['Idot_max_rel']*params.spc['eta_IA_0'])/params.spc['k_M_0']
 
-    y0 = [1e-5, 0, params.spc["X_emb_int"], params.glb['Xdot_in'], 0.] # defining initial states
+    y0 = [1e-5, 0, params.spc["X_emb_int"], params.glb['Xdot_in'], 0., 0.] # defining initial states              ### second 0. is initial CD
 
     # defining time-points to evaluate
     # this comes at some computational cost compared to letting the ODE solver decide, 
@@ -36,7 +36,8 @@ def simulate_DEBBase(params):
         1 : 'R', 
         2 : 'X_emb', 
         3 : 'X', 
-        4 : 'D_j'
+        4 : 'D_j',
+        5 : 'Cd_in'
         }, axis = 1, inplace = True)
     
     # subtracting initial age from time helps to align output with experimental observaions

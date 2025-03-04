@@ -65,13 +65,13 @@ def plot_data(data):
         obs = data.loc[lambda df : df.C_W==C_W]
         
         sns.lineplot(obs, x = 't_day', y = 'S', ax = ax[0,i], marker = 'o', color = 'black')
-        #sns.lineplot(obs, x = 't_day', y = 'y_R', ax = ax[1,i], marker = 'o', color = 'black', label = "Daten")
+        #sns.lineplot(obs, x = 't_day', y = 'Cd_in', ax = ax[1,i], marker = 'o', color = 'black', label = "Daten")
 
     #ax[0].legend()
     #[a.legend().remove() for a in np.ravel(ax)[1:]]
     ax[0,0].set_ylim(0, 30)
     ax[0,0].set(ylabel = "Struktur (mug)")
-    ax[1,0].set(ylabel = "Reproduktion (mug)")
+    ax[1,0].set(ylabel = "Masse an Cadmium in Organismus (mug)")
     
     sns.despine()
     plt.tight_layout()
@@ -85,7 +85,7 @@ def plot_sim(ax, sim):
         df = sim.loc[lambda df : df.C_W == C_W]
 
         sns.lineplot(df, x = 't_day', y = 'S', ax = ax[0,i])
-        sns.lineplot(df, x = 't_day', y = 'R', ax = ax[1,i])
+        sns.lineplot(df, x = 't_day', y = 'Cd_in', ax = ax[1,i])
 
     return ax
 
@@ -117,7 +117,7 @@ def define_simulator(f: ModelFit):
                 prediction.loc[prediction['C_W']==0], on = ['t_day'], suffixes = ['', '_ref']).groupby(['t_day', 'C_W']).apply(
                     lambda gb : gb.assign(
                         y_S = lambda gb : gb.S / gb.S_ref,
-                        y_R = lambda gb : calc_y_R(np.array(gb.cum_repro), np.array(gb.cum_repro_ref))
+                        #y_R = lambda gb : calc_y_R(np.array(gb.cum_repro), np.array(gb.cum_repro_ref))
                     ))
             
             return prediction.drop(['C_W', 't_day'], axis = 1).reset_index()
