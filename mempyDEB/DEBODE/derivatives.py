@@ -77,6 +77,7 @@ def DEBBase(t, y, glb, spc, LS_max):
         f = X_V / (X_V + spc['K_X'])
         Idot = f * spc["Idot_max_rel"] * S**(2/3)
         Adot = Idot * eta_IA
+        Cd_indot = Adot * glb['Cd_food'] * 10e-9
         Xdot = glb['Xdot_in'] - Idot
         Xdot_emb = 0
 
