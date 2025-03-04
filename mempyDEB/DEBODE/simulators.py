@@ -27,7 +27,7 @@ def simulate_DEBBase(params):
         y0, # initial states
         t_eval = t_eval, # time points to evaluate
         rtol = 1e-6, # relative tolerance
-        args = (params.glb, params.spc, LS_max) # additional arguments to make available within the model function
+        args = (params.glb, params.spc, LS_max, ) # additional arguments to make available within the model function
         ) 
     
     sim = pd.DataFrame(np.transpose(sol.y))
