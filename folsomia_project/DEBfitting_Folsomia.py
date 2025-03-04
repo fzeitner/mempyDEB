@@ -43,7 +43,7 @@ def load_data():
     Einlesen der Kontrolldaten für Folsomia.
     """
 
-    data = pd.read_csv('../../data/folsomia_cadmium/folsomia_temperature_cadmium_growth_tidy.csv', header = 5)
+    data = pd.read_csv('folsomia_temperature_cadmium_growth_tidy.csv', header = 5)
     data = data.loc[lambda df : df.T_cels == 20]
     data = data.loc[lambda df : df.C_F == 0]
     data = data.assign(S = collembola_length_to_weight(data.length_mm))
