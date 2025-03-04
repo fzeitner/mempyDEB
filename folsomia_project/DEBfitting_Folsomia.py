@@ -113,7 +113,8 @@ def define_defaultparams():
         'V_patch': 0.05,
         'Xdot_in': 1e10,
         'a_int': 6,
-        'tspan': (0, 80)
+        'tspan': (0, 80),
+        "Cd_food": 0.
     }
 
     spc = {

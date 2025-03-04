@@ -17,8 +17,8 @@ defaultparams_DEBBase = Params(
         # Environmental parameters
         'V_patch':  0.05, # simulated volume (L)
         'Xdot_in': 375, # food input rate (µg C / d)
-        'C_W' : 0, # chemical exposure concentration
-        'Cd_food' : 0 #mass concenctration in food
+        'C_W' : 0., # chemical exposure concentration
+        'Cd_food' : 0. #mass concenctration in food
     },
     { # species-specific parameters
         'X_emb_int': 0.675, # mass of an egg (µgC)
