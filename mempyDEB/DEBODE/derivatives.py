@@ -200,6 +200,8 @@ def DEBBase_cd_export(t, y, glb, spc, LS_max):
     X_emb = np.maximum(0, X_emb)
     S = np.maximum(0, S)
 
+    Cd_conc = Cd_in * 1e-3 / (S+1e-10)
+
     #with warnings.catch_warnings():
     #    warnings.simplefilter('ignore')
     LS = S**(1/3) # current structural length
@@ -231,7 +233,7 @@ def DEBBase_cd_export(t, y, glb, spc, LS_max):
         f = X_V / (X_V + spc['K_X'])
         Idot = f * spc["Idot_max_rel"] * S**(2/3)
         Adot = Idot * eta_IA
-        Cd_indot = Adot * glb['C_W'] * 10e-3 - spc['ex_cd'] * Cd_in        # Adot is mug and C_W is pg/mug --> 10e-6 to get Cd_indot in mug as well  ### work in progress
+        Cd_indot = Adot * glb['C_W'] * 1e-3 - spc['ex_cd'] * Cd_in        # Adot is mug and C_W is pg/mug --> 10e-6 to get Cd_indot in mug as well  ### work in progress
         Xdot = glb['Xdot_in'] - Idot
         Xdot_emb = 0
 
