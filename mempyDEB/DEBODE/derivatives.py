@@ -82,7 +82,7 @@ def DEBBase(t, y, glb, spc, LS_max):
         f = X_V / (X_V + spc['K_X'])
         Idot = f * spc["Idot_max_rel"] * S**(2/3)
         Adot = Idot * eta_IA
-        Cd_indot = Adot * glb['C_W'] * 10e-6         # Adot is mug and C_W is pg/mug --> 10e-6 to get Cd_indot in mug as well  ### work in progress
+        Cd_indot = Adot * glb['C_W'] * 10e-3 # now its ng again        # Adot is mug and C_W is pg/mug --> 10e-6 to get Cd_indot in mug as well  ### work in progress
         Xdot = glb['Xdot_in'] - Idot
         Xdot_emb = 0
 
@@ -99,6 +99,85 @@ def DEBBase(t, y, glb, spc, LS_max):
     # DDot_j = (X_emb <= 0) * (spc['kD_j'] * (LS_max / (LS+1e-10)) * (glb['C_W'] - D_j)) - (D_j * (1/(S+1e-10)) * Sdot)
     DDot_j = (X_emb <= 0) * (spc['kD_j'] * (LS_max / (LS+1e-10)) * (Cd_in - D_j)) - (D_j * (1/(S+1e-10)) * Sdot) #überarbeiten
 
-
+    print(Cd_indot, Cd_in)
     return Sdot, Rdot, Xdot_emb, Xdot, DDot_j, Cd_indot
+            
+
+def DEBBase_Cd(t, y, glb, spc, LS_max):
+    """
+    DEBBase(t, y, glb, spc)
+
+    Derivatives of the "DEBBase" model. <br>
+    DEBBase is a formulation of DEBkiss with maturity, where structure is expressed as mass (instead of volume). <br>
+    The TKTD part assumes log-logistic relationships between scaled damage and the relative response. <br>
+    There is no explicit representation of "stress". Instead, we compute the relative response directly by applying the appropriate form of the dose-response function.
+    This is the same model formulation as used in the Julia package DEBBase.jl.
+
+    args:
+
+    - t: current time point
+    - y: vector of states
+    - glb: global parameters
+    - spc: species-specific parameters
+    - LS_max: maximum structural length (expressed as cubic root of mass), calculated from parameters in spc.
+    """
+
+    S, R, X_emb, X,  Cd_in = y           #D_j,
+    
+    X_emb = np.maximum(0, X_emb)
+    S = np.maximum(0, S)
+
+    #with warnings.catch_warnings():
+    #    warnings.simplefilter('ignore')
+    LS = S**(1/3) # current structural length
+
+    # relative responses for sublethal effects
+    y_G = (int(spc['pmoa'] == 'G') * LL2(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'G') * 1)
+    y_M = (int(spc['pmoa'] == 'M') * LL2M(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'M') * 1)
+    y_A = (int(spc['pmoa'] == 'A') * LL2(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'A') * 1)
+    y_R = (int(spc['pmoa'] == 'R') * LL2(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'R') * 1)    
+    # y_G = (int(spc['pmoa'] == 'G') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'G') * 1)
+    # y_M = (int(spc['pmoa'] == 'M') * LL2M(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'M') * 1)
+    # y_A = (int(spc['pmoa'] == 'A') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'A') * 1)
+    # y_R = (int(spc['pmoa'] == 'R') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'R') * 1)
+
+    eta_AS = spc['eta_AS_0'] * y_G
+    k_M = spc['k_M_0'] * y_M
+    eta_IA = spc['eta_IA_0'] * y_A
+    eta_AR = spc['eta_AR_0'] * y_R
+
+    X_emb = np.maximum(X_emb, 0)
+    X = np.maximum(X, 0)
+    
+    if X_emb > 0: # feeding and assimilation for embryos
+        Idot = spc["Idot_max_rel_emb"] * S**(2/3)
+        Adot = Idot * spc['eta_IA_0'] # this assumes that embryos are not affected by the stressor
+        Xdot_emb = -Idot
+        Xdot = 0
+        DDot_j = 0 # no change in damage for embryos
+        Cd_indot = 0
+    else: # feeding, assimilation for all other life stages
+        X_V = X/glb['V_patch'] 
+        f = X_V / (X_V + spc['K_X'])
+        Idot = f * spc["Idot_max_rel"] * S**(2/3)
+        Adot = Idot * eta_IA
+        Cd_indot = Adot * glb['C_W'] * 10e-3 # now its ng again        # Adot is mug and C_W is pg/mug --> 10e-6 to get Cd_indot in mug as well  ### work in progress
+        Xdot = glb['Xdot_in'] - Idot
+        Xdot_emb = 0
+
+    Mdot = k_M * S
+    Sdot = eta_AS * (spc['kappa'] * Adot - Mdot)
+
+    if Sdot < 0:
+        Sdot = -(Mdot / spc['eta_SA'] - spc['kappa'] * Adot)
+    if (S >= spc["S_p"]):
+        Rdot = eta_AR * (1 - spc['kappa']) * Adot
+    else:
+        Rdot = 0
+
+    # DDot_j = (X_emb <= 0) * (spc['kD_j'] * (LS_max / (LS+1e-10)) * (glb['C_W'] - D_j)) - (D_j * (1/(S+1e-10)) * Sdot)
+    #DDot_j = (X_emb <= 0) * (spc['kD_j'] * (LS_max / (LS+1e-10)) * (Cd_in - D_j)) - (D_j * (1/(S+1e-10)) * Sdot) #überarbeiten
+
+    print(Cd_indot, Cd_in)
+    return Sdot, Rdot, Xdot_emb, Xdot, Cd_indot #DDot_j,
             
