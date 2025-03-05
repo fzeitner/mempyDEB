@@ -79,7 +79,6 @@ def define_simulator(f: ModelFit):
 
         p = deepcopy(f.defaultparams)
         p.spc.update(theta) # macht das gleiche wie p.spc['Idot_max_rel'] = theta['Idot_max_rel'] für alle einträge in theta
-
         
         S_max_theta = calc_S_max(p.spc) # implizierte maximale Struktur auf basis von theta
         zoom_factor_theta = S_max_theta / S_MAX_REFERENCE # zoom factor auf basis von theta
@@ -128,7 +127,8 @@ def define_defaultparams():
         'kappa': 0.9, 
         'eta_SA': 0.9, 
         'k_M_0': np.float64(0.5039684199579493), 
-        'S_p': 258.93333333333334, 
+        'S_p': 258.93333333333334,
+        'ex_cd': 0.02, 
         'kD_j': 0.5, 
         'ED50_j': 1.0, 
         'beta_j': 2.0, 

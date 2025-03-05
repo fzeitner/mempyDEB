@@ -32,7 +32,7 @@ defaultparams_DEBBase = Params(
         'eta_SA': 0.9, # shrinking efficiency (-)
         'k_M_0': 0.4, # somatic maintenance constant (d^-1)
         'S_p': 9, # structural mass at puberty (µgC)
-        'ex_cd': 0.01,
+        'ex_cd': 0.02,
 
         # sublethal TKTD parameters 
         'kD_j' : .5, # dominant rate constant for sublethal effects (d^-1)
