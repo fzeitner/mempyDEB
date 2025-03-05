@@ -32,11 +32,12 @@ defaultparams_DEBBase = Params(
         'eta_SA': 0.9, # shrinking efficiency (-)
         'k_M_0': 0.4, # somatic maintenance constant (d^-1)
         'S_p': 9, # structural mass at puberty (µgC)
+        'ex_cd': 0.01,
 
         # sublethal TKTD parameters 
         'kD_j' : .5, # dominant rate constant for sublethal effects (d^-1)
-        'ED50_j' : 1., # median effective scaled damage for sublethal effects - this model assumes a log-logistic relationsip between damage and relative response on the DEB level (units chemical exposure)
-        'beta_j' : 2., # slope for lethal effects (-)
+        'ED50_j' : 521.4605622969294, # median effective scaled damage for sublethal effects - this model assumes a log-logistic relationsip between damage and relative response on the DEB level (units chemical exposure)
+        'beta_j' : 0.911675601257318, # slope for lethal effects (-)
         'pmoa' : 'G', # physiological mode of action (categorical: G, M, A, R)
 
         # GUTS-SD parameters
