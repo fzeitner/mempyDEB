@@ -53,10 +53,14 @@ def DEBBase(t, y, glb, spc, LS_max):
     LS = S**(1/3) # current structural length
 
     # relative responses for sublethal effects
-    y_G = (int(spc['pmoa'] == 'G') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'G') * 1)
-    y_M = (int(spc['pmoa'] == 'M') * LL2M(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'M') * 1)
-    y_A = (int(spc['pmoa'] == 'A') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'A') * 1)
-    y_R = (int(spc['pmoa'] == 'R') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'R') * 1)
+    y_G = (int(spc['pmoa'] == 'G') * LL2(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'G') * 1)
+    y_M = (int(spc['pmoa'] == 'M') * LL2M(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'M') * 1)
+    y_A = (int(spc['pmoa'] == 'A') * LL2(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'A') * 1)
+    y_R = (int(spc['pmoa'] == 'R') * LL2(Cd_in, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'R') * 1)    
+    # y_G = (int(spc['pmoa'] == 'G') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'G') * 1)
+    # y_M = (int(spc['pmoa'] == 'M') * LL2M(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'M') * 1)
+    # y_A = (int(spc['pmoa'] == 'A') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'A') * 1)
+    # y_R = (int(spc['pmoa'] == 'R') * LL2(D_j, (spc['ED50_j'], spc['beta_j']))) + (int(spc['pmoa'] != 'R') * 1)
 
     eta_AS = spc['eta_AS_0'] * y_G
     k_M = spc['k_M_0'] * y_M
@@ -78,7 +82,7 @@ def DEBBase(t, y, glb, spc, LS_max):
         f = X_V / (X_V + spc['K_X'])
         Idot = f * spc["Idot_max_rel"] * S**(2/3)
         Adot = Idot * eta_IA
-        Cd_indot = Adot * glb['C_W'] * 10e-9         # factor of proportionality mg  mg/kg   ### work in progress
+        Cd_indot = Adot * glb['C_W'] * 10e-6         # Adot is mug and C_W is pg/mug --> 10e-6 to get Cd_indot in mug as well  ### work in progress
         Xdot = glb['Xdot_in'] - Idot
         Xdot_emb = 0
 

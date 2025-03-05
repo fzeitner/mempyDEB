@@ -70,7 +70,7 @@ def plot_data(data):
     #ax[0].legend()
     #[a.legend().remove() for a in np.ravel(ax)[1:]]
     ax[0,0].set_ylim(0, 30)
-    ax[1,0].set_ylim(0, 0.0008)
+    #ax[1,0].set_ylim(0, 0.0008)
     ax[0,0].set(ylabel = "Struktur (mug)")
     ax[1,0].set(ylabel = "Masse an Cadmium in Organismus (mug)")
     
