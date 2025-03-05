@@ -107,9 +107,10 @@ def define_simulator(f: ModelFit):
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             prediction = constant_exposures(
-                simulate_DEBBase, p, EXPOSURES
+                simulate_DEBBase_cd_export, p, EXPOSURES
                 ).assign(
                     cum_repro = lambda df : np.trunc(df.R / p.spc['X_emb_int']).shift(EMB_DEV_TIME, fill_value = 0),
+                    cd_conc = lambda df : df.Cd_in / df.S,
                 ).rename({'t' : 't_day'}, axis = 1)
             
             # Berechnung der relative response
