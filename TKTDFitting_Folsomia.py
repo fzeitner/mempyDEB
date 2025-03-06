@@ -57,7 +57,7 @@ def plot_data(data):
     """
 
     # plot matrix mit 8 spalten für konzentrationen und 2 zeilen für wachstum und reproduktion
-    fig, ax = plt.subplots(ncols = 5, nrows=2, figsize = (20,6), sharey = 'row')
+    fig, ax = plt.subplots(ncols = 5, nrows=3, figsize = (20,10), sharey = 'row')
 
     for (i,C_W) in enumerate(data.C_W.unique()):
 
@@ -72,7 +72,8 @@ def plot_data(data):
     ax[0,0].set_ylim(0, 30)
     #ax[1,0].set_ylim(0, 0.0008)
     ax[0,0].set(ylabel = "Struktur (mug)")
-    ax[1,0].set(ylabel = "Masse an Cadmium in Organismus (ng)")
+    ax[1,0].set(ylabel = "Masse an Cadmium im Organismus (ng)")
+    ax[2,0].set(ylabel = "Konzentration von Cd im Organismus [% m/m]")
     
     sns.despine()
     plt.tight_layout()
@@ -86,7 +87,12 @@ def plot_sim(ax, sim):
         df = sim.loc[lambda df : df.C_W == C_W]
 
         sns.lineplot(df, x = 't_day', y = 'S', ax = ax[0,i])
-        sns.lineplot(df, x = 't_day', y = 'Cd_in', ax = ax[1,i])
+        sns.lineplot(df, x = 't_day', y = 'Cd_in', ax = ax[1,i], color = 'navy')
+
+        sim = sim.assign(Cd_conc  = lambda df : ((df.Cd_in * 1e-3) / df.S)*100)
+        obs = sim.loc[lambda df : df.C_W==C_W]
+
+        sns.lineplot(obs, x = 't_day', y = 'Cd_conc', ax = ax[2,i], color = 'navy')
 
     return ax
 
