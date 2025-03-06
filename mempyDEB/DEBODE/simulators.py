@@ -148,7 +148,7 @@ def constant_exposures(simulator, params, C_Wvec):
 
     return output
 
-
+"""
 def EulerExplnD(func,dim,pars,h,func_init,tend):
     tvals = np.linspace(0,tend,int(np.ceil(tend/h)+1))
     funcvals = np.zeros((len(tvals), dim))
@@ -160,6 +160,7 @@ def EulerExplnD(func,dim,pars,h,func_init,tend):
             funcvals[step,dimix] = old_vals[dimix]+h*(func(t_now,old_vals,*pars)[dimix])
             old_vals = funcvals[step]
     return (tvals,funcvals)
+"""
 
 def simulate_DEBBase_Cd(params):
     # maximum srutural length (expressed in mass ^ (1/3))

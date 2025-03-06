@@ -93,7 +93,7 @@ def plot_sim(ax, sim):
 #### Simulator-Funktion
 
 
-def define_simulator(f: ModelFit):
+def define_simulator(f: ModelFit, function = simulate_DEBBase_cd_export):
 
     """
     Definition der Simulator-Funktion für DEB-Kalibrierung.
@@ -116,7 +116,7 @@ def define_simulator(f: ModelFit):
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             prediction = constant_exposures(
-                simulate_DEBBase_cd_export, p, EXPOSURES
+                function, p, EXPOSURES
                 ).assign(
                     cum_repro = lambda df : np.trunc(df.R / p.spc['X_emb_int']).shift(EMB_DEV_TIME, fill_value = 0),
                     cd_conc = lambda df : df.Cd_in / df.S,
@@ -205,7 +205,7 @@ def define_loss(constants = None):
     return loss
 
 
-def setup_modelfit(pmoa = 'G'):
+def setup_modelfit(pmoa = 'G', func = simulate_DEBBase_cd_export):
     
     f = ModelFit()
     f.data = load_data()
@@ -238,7 +238,7 @@ def setup_modelfit(pmoa = 'G'):
         'beta_j' : 2.
         }
 
-    f.simulator = define_simulator(f)
+    f.simulator = define_simulator(f, func)
     f.loss = define_loss(constants)
 
     # define_objective_function kombiniert simulator und loss in eine einzelne Funktion
